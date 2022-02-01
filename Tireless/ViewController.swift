@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import MLKit
 
 class ViewController: UIViewController {
 
