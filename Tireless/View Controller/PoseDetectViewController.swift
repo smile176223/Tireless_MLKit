@@ -131,7 +131,7 @@ class PoseDetectViewController: UIViewController {
             strongSelf.captureSession.beginConfiguration()
             // When performing latency tests to determine ideal capture settings,
             // run the app in 'release' mode to get accurate performance metrics
-                    strongSelf.captureSession.sessionPreset = AVCaptureSession.Preset.vga640x480
+                    strongSelf.captureSession.sessionPreset = AVCaptureSession.Preset.high
             
             let output = AVCaptureVideoDataOutput()
             output.videoSettings = [
@@ -382,11 +382,12 @@ extension PoseDetectViewController: AVCaptureVideoDataOutputSampleBufferDelegate
         visionImage.orientation = orientation
         let imageWidth = CGFloat(CVPixelBufferGetWidth(imageBuffer))
         let imageHeight = CGFloat(CVPixelBufferGetHeight(imageBuffer))
+        detectPose(in: visionImage, width: imageWidth, height: imageHeight)
         
-        switch activeDetector {
-        case .pose :
-            detectPose(in: visionImage, width: imageWidth, height: imageHeight)
-        }
+//        switch activeDetector {
+//        case .pose :
+//            detectPose(in: visionImage, width: imageWidth, height: imageHeight)
+//        }
         
     }
 }
@@ -400,27 +401,11 @@ public enum Detector: String {
 }
 
 private enum Constant {
-    static let alertControllerTitle = "Vision Detectors"
-    static let alertControllerMessage = "Select a detector"
-    static let GymalertControllerTitle = "GymWorkType"
-    static let GymalertControllerMessage = "Select a GymWork"
-    static let cancelActionTitleText = "Cancel"
     static let videoDataOutputQueueLabel = "com.google.mlkit.visiondetector.VideoDataOutputQueue"
     static let sessionQueueLabel = "com.google.mlkit.visiondetector.SessionQueue"
-    static let noResultsMessage = "No Results"
-    static let localModelFile = (name: "bird", type: "tflite")
-    static let labelConfidenceThreshold = 0.75
     static let smallDotRadius: CGFloat = 4.0
     static let lineWidth: CGFloat = 3.0
-    static let originalScale: CGFloat = 1.0
-    static let padding: CGFloat = 10.0
-    static let resultsLabelHeight: CGFloat = 200.0
-    static let resultsLabelLines = 5
-    static let imageLabelResultFrameX = 0.4
-    static let imageLabelResultFrameY = 0.1
-    static let imageLabelResultFrameWidth = 0.5
-    static let imageLabelResultFrameHeight = 0.8
-    static let segmentationMaskAlpha: CGFloat = 0.5
+
 }
 
 
